@@ -31,16 +31,46 @@ AML<- subset (x=AML, subset= orig.ident != 'MUTZ3.fresh2')
 AML<- subset (x=AML, subset= orig.ident != 'MUTZ3.frozen')
 AML<- subset (x=AML, subset= orig.ident != 'OCI.AML3')
 
-AML<- ScaleData(AML)
-AML<-FindVariableFeatures(AML)
-AML <- RunPCA(AML, assay = "RNA", verbose = FALSE)
+all.samples<-AML
+healthy_samples<- subset(x=all.samples, subset= orig.ident %in% c('BM1', 'BM2', 'BM3', 'BM4','BM5.34p','BM5.34p38n' ))
+AML_samples<- subset(x=all.samples, subset= orig.ident %in% c('AML1012.D0', 'AML210A.D0', 'AML419A.D0', 'AML916.D0', 'AML921A.D0', 'AML314.D0', 'AML314.D31', 'AML371.D0', 'AML371.D34', 'AML475.D0', 'AML475.D29', 'AML722B.D0', 'AML722B.D49', 'AML870.D0', ' AML870.D14', ' AML997.D0','AML997.D35', 'AML329.D0','AML329.D20', 'AML329.D37', ' AML420B.D0', 'AML420B.D14 ', 'AML420B.D35', 'AML556.D0', 'AML556.D15', ' AML556.D31', 'AML328.D0','AML328.D29 ', 'AML328.D113', 'AML328.D171', 'AML707B.D0', 'AML707B.D18', 'AML707B.D41', 'AML707B.D97', 'AML707B.D113') )
+malignant_cells<- subset(x=AML_samples, subset = PredictionRefined == 'malignant')
+healthycells_patient<- subset(x=AML_samples, subset = PredictionRefined == 'normal')
+DimPlot(malignant_cells, reduction = "umap",  group.by = 'CellType', label= TRUE, label.size=3) +
+  ggtitle('Cell Types Malignant')
+donor_malignant<- subset(x=all.samples, subset= orig.ident %in% c('BM1', 'BM2', 'BM3', 'BM4','BM5.34p','BM5.34p38n') | PredictionRefined == 'malignant')
+
+AML_samples<- ScaleData(AML_samples)
+AML_samples<-FindVariableFeatures(AML_samples)  #I want to detect the marker genes that differentiate between malignant and nonmalignant cells in AML sample
+AML_samples <- RunPCA(AML_samples, assay = "RNA", verbose = FALSE)
+AML_samples<- RunUMAP(AML_samples, dims = 1:20)
+DimPlot(AML_samples, reduction = "umap",  group.by = 'PredictionRefined', label= TRUE, label.size=3) +
+  ggtitle('AML_samples state')
+
+healthy_samples<- ScaleData(healthy_samples)
+healthy_samples<-FindVariableFeatures(healthy_samples)  #I want to detect the marker genes that differentiate between malignant and nonmalignant cells in AML sample and cell types
+healthy_samples <- RunPCA(healthy_samples, assay = "RNA", verbose = FALSE)
+healthy_samples<- RunUMAP(healthy_samples, dims = 1:20)
+DimPlot(healthy_samples, reduction = "umap",  group.by = 'PredictionRefined', label= TRUE, label.size=3) +
+  ggtitle('healthy_samples state')
+
+donor_malignant<-ScaleData(donor_malignant)
+donor_malignant<-FindVariableFeatures(donor_malignant)  #I want to detect the marker genes that differentiate between conditions
+donor_malignant <- RunPCA(donor_malignant, assay = 'RNA', verbose = FALSE)
+donor_malignant<- RunUMAP(donor_malignant, dims = 1:20)
+DimPlot(donor_malignant, reduction = "umap",  group.by = 'PredictionRefined', label= TRUE, label.size=3) +
+  ggtitle('healthy_malignant state')
+
+healthycells_patient<-ScaleData(healthycells_patient)
+healthycells_patient<-FindVariableFeatures(healthycells_patient)  #I want to detect the marker genes that differentiate between malignant and nonmalignant cells in AML sample
+healthycells_patient <- RunPCA(healthycells_patient, assay = 'RNA', verbose = FALSE)
+healthycells_patient<- RunUMAP(healthycells_patient, dims = 1:20)
+
 
 #subsetting seurat object on one celltype and based on condition (healthy/disease)----------
 #this cell type will be used to identify its target genes and focus on them in the analysis
 #so any detected external signals would be targetting this specific cell type
-all.samples<-AML
-healthy_samples<- subset(x=AML, subset= PredictionRefined == 'normal')
-AML_samples<- subset(x=AML, subset= PredictionRefined == 'malignant')
+#rhis step seems to be unnecessary 
 
 #HSC
 HSC.AML<-subset(x= AML_samples, subset= CellType == c('HSC', 'HSC-like')
@@ -52,28 +82,43 @@ DimPlot(HSC.AML, reduction = "umap",  group.by = 'CellType', label= TRUE, label.
   ggtitle('HSC.AML')
 
 #Progenitor cells
-Prog.AML<-subset(x=AML_samples,subset= CellType == 'Prog-like')
-
-#GMP cells
-GMP.AML<- subset(x=AML_samples,subset= CellType == 'GMP-like')
+Prog.Patient<-subset(x=AML_samples,subset= CellType == c('Prog','Prog-like'))
+Prog.malignant<- subset(x=malignant_cells, subset = CellType == 'Prog-like'#GMP cells
+GMP.PatientL<- subset(x=AML_samples,subset= CellType == c('GMP','GMP-like'))
+GMP.AML<-ScaleData(GMP.AML)
 
 #ProMonocyte cells
 ProMono.AML<- subset(x=AML_samples,subset= CellType == 'ProMono-like')
+ProMono.AML<-ScaleData(ProMono.AML)
 
 #Monocyte
 Mono.AML<- subset(x=AML_samples,subset= CellType == 'Mono-like')
+Mono.AML<-ScaleData(Mono.AML)
 
 #cDC
 cDC.AML<-  subset(x=AML_samples,subset= CellType == 'cDC-like')
-
-#perform exFINDER ---------------
+cDC.AML<-ScaleData(cDC.AML)
+cDC.AML<-FindVariableFeatures(cDC.AML)
+cDC.AML <- RunPCA(cDC.AML, assay = "RNA", verbose = FALSE)
+cDC.AML<- RunUMAP(cDC.AML, dims = 1:20)
+DimPlot(HSC.AML, reduction = "umap",  group.by = 'CellType', label= TRUE, label.size=3) +
+  ggtitle('HSC.AML')
 
 # discovering marker genes------
-cDC.AML.markers <- FindAllMarkers(cDC.AML)
-cDC.AML.markers<- cDC.AML.markers %>%
-  group_by(cluster) %>%
+healthy.markers <- FindAllMarkers(healthy_samples)
+healthy.markers<- healthy.markers%>%
   dplyr::filter(avg_log2FC > 1 & p_val_adj< 0.01)
-cDC.AML.markers<- cDC.AML.markers%>% arrange(avg_log2FC,)
+healthy.markers<- healthy.markers%>% arrange(avg_log2FC)
+
+malignant.markers<-c('S100A9','CD74','CTSS','EMB','PSAP','PCNP','CFD','APLP2','EEF1A1','RPS3A','VIM','HSPA5','NPM1','NEAT1','HMGB2','HLA-DRB1','CD74','TXNIP','EEF2','ANXA1')
+#'RPL13','RPL32','RPL41','RPL7','RPL9','RPS13','RPS19','RPS21','RPS29','RPS4X','RPS14','RPS7','RPSA'
+
+target.gene.healthy<-healthy.markers$gene[84:95]
+target.gene<- c('CTC','HBBP1','HBET','KLRC3','PRF1','CD3G','FGR','NRIP1','TYROBP','MME','BCL11B','RASSF4','SAP30','FGL2')
+DoHeatmap(healthy_samples, features= target.gene.healthy, group.by= 'CellType') + ggtitle ('Healthy Marker Genes log2FC>1')
+FeaturePlot(healthy_samples, features = target.gene.healthy)
+
+#perform exFINDER ---------------
 
 #load exFINDER Database-----
 load("C:\\Users\\Dell\\Downloads\\bachelor\\exFINDER_method\\data\\LR_layer1_human.rda")
@@ -113,7 +158,7 @@ ggplot(data=percentile_data, aes(x=Type, y=Ave.Exp., color=Prob.)) +
   ggtitle('percentile.AML')
 
 #set up target genes and infer ltGRN------
-target.gene <- cDC.AML.markers$gene[1:10]
+target.gene <- healthy_malignant.markers$gene[1:100]
 ltGRN <- get_ltGRN(Target = target.gene, DB = exFINDER.H)  # run everything each time you change no. of target genes
 
 
@@ -324,6 +369,3 @@ fviz_cluster(km.res, data = sm, geom = "point",
              pointsize = 3.5)+
   theme_minimal()+
   geom_text(aes(label = ligand_target_pairs, size = 0.2, vjust = -1))
-
- 
- 
