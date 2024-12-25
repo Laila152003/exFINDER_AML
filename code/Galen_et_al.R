@@ -174,22 +174,45 @@ VlnPlot(healthy_samples, markers_by_log2fc$gene[1:6]) +
 markers_by_p_val = markers_by_log2fc %>% 
   arrange(p_val_adj)
 
-VlnPlot(healthy_samples, markers_by_p_val$gene[1:6]) &
+VlnPlot(healthy_samples, markers_by_p_val$gene[1:12]) &
   patchwork::plot_annotation(title = "Top X Marker Genes by p_val")
+ggsave("markers_violin_HH_top_p_val.pdf", height = 20, width = 30,
+       path = file.path(proj_dir, "results/marker_genes"))
 
-FeaturePlot(healthy_samples, features = markers_by_p_val$gene[1:4]) + 
-  ggtitle("Top X Marker Genes by log2FC")
+FeaturePlot(healthy_samples, features = markers_by_p_val$gene[1:12]) + 
+  ggtitle("Top X Marker Genes by p_val")
+ggsave("markers_featureplot_HH_top_p_val.pdf", height = 20, width = 30,
+       path = file.path(proj_dir, "results/marker_genes"))
 
+## Plot top1 marker gene for each cluster
+library(magrittr)
+top1genes_p_val = markers_by_p_val %>% group_by(cluster) %>% arrange(p_val_adj) %>% 
+  slice_head(n = 1) %>% ungroup()
+FeaturePlot(healthy_samples, features = top1genes_p_val$gene) +
+  plot_annotation(tag_levels = list(top1genes_p_val$cluster), 
+                  title = "Top1 Marker Genes (by p_val) for each CellType")
+ggsave("markers_featureplot_HH_top1_p_val.pdf", height = 20, width = 30,
+       path = file.path(proj_dir, "results/marker_genes"))
+
+## Plot marker genes heatmaps
 top_markers_by_p_val = markers_by_p_val %>%
   group_by(cluster) %>%
-  # dplyr::filter(avg_log2FC > 1) %>%
+  slice_head(n = 10) %>%
+  ungroup()
+top_markers_by_log2fc = markers_by_log2fc %>%
+  group_by(cluster) %>%
   slice_head(n = 10) %>%
   ungroup()
 
 DoHeatmap(healthy_samples, features = top_markers_by_p_val$gene) + NoLegend()
+ggsave("markers_heatmap_HH_top_p_val.pdf", height = 20, width = 30,
+       path = file.path(proj_dir, "results/marker_genes"))
 
-DoHeatmap(healthy_samples, features = top_markers_by_p_val$gene[1:4], group.by = "CellType") +
-  ggtitle("Top X Marker Genes by log2FC")
+DoHeatmap(healthy_samples, features = top_markers_by_log2fc$gene) + NoLegend()
+ggsave("markers_heatmap_HH_top_log2fc.pdf", height = 20, width = 30,
+       path = file.path(proj_dir, "results/marker_genes"))
+
+
 
 malignant.markers <- c("S100A9", "CD74", "CTSS", "EMB", "PSAP", "PCNP", "CFD", "APLP2", "EEF1A1", "RPS3A", "VIM",
                        "HSPA5", "NPM1", "NEAT1", "HMGB2", "HLA-DRB1", "CD74", "TXNIP", "EEF2", "ANXA1")
