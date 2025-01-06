@@ -342,36 +342,11 @@ dev.off()
 
 # calculate the expression levels
 exSigNet.0 <- get_NodeValue(Graph = exSigNet.0, Exp.Data = expMydata, Meta.Data = meta.AML, AG.R = c("cDC-like"),
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) AG.TF
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) =
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) c("cDC-like"),
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) AG.T
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) =
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) c("cDC-like"),
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) #
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) if
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) there
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) is
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) no
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) expresison
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) data
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) for
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) ligands,
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) exFINDER
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) will
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) set
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) them
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) to
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) 1.
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) Exp.ExData
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) =
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) NULL,
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) Meta.ExData
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) =
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) NULL,
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) AG.ExData
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) =
-                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  Exp.ExData = NULL,  Meta.ExData = NULL,  AG.ExData = NULL) NULL)
+                            AG.TF = c("cDC-like"), AG.T = c("cDC-like"), # if there is no expresison data for ligands, exFINDER will set them to 1.  
+                            Exp.ExData = NULL,  
+                            Meta.ExData = NULL,  
+                            AG.ExData = NULL))
+                
                             
                             # predict signaling strengths
                             exSigNet.0 <- get_EdgeWeight(Graph = exSigNet.0, Kh = 2)
